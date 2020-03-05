@@ -46,8 +46,10 @@
   var demography_text = {
       type: 'survey-text',
       questions: [
-        {prompt: '¿Cuál es su edad?', placeholder:'', columns: 10, required:true},
-        {prompt: '¿Cuál es su área de especialización?', columns: 20, placeholder:'', required:true},
+        {prompt: 'Nombre', placeholder:'', columns: 10, required:true},
+        {prompt: 'Dirección de mail', placeholder:'', columns: 10, required:true},
+        {prompt: 'Edad', placeholder:'', columns: 10, required:true},
+        {prompt: 'Área de especialización o formación', columns: 20, placeholder:'', required:true},
       ],
       required:true,
     button_label: 'Continuar',
@@ -66,7 +68,7 @@
   var stats_i = {
       type: 'survey-text',
       questions: [
-        {prompt: '¿Cuáles son las medidas de tendencia central? ¿Qué podemos esperar que suceda con cada una si removemos un valor extremo?', placeholder:'', columns: 100, rows:10,  required:true},
+        {prompt: '¿Cuáles son las tres medidas de tendencia central más comunmente usadas? ¿Qué podemos esperar que suceda con cada una si removemos un valor extremo?', placeholder:'', columns: 100, rows:10,  required:true},
         {prompt: 'Dado una regresión lineal múltiple, asumiendo que los supuestos se cumplen y hay buen ajuste, <p>¿qué podría decir si el beta (peso, o coeficiente) para una variable es igual a 2?',
  columns: 100, rows:10, placeholder:'', required:true},
       ],
