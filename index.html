@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>INTAL</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="static/media/misc/favicon.png">
+    <link rel="stylesheet" href="static/jspsych/css/jspsych.css"></link>
+    <script src="static/jspsych/jspsych.js"></script>
+    <script src="static/jspsych/plugins/jspsych-html-button-response.js"></script>
+    <script src="static/jspsych/plugins/jspsych-survey-likert.js"></script>
+    <script src="static/jspsych/plugins/jspsych-survey-text.js"></script>
+    <script src="static/jspsych/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="static/jspsych/plugins/jspsych-survey-multi-select.js"></script>
+    <script src="static/jquery-3.3.1.js"></script>
+  </head>
+  <body></body>
+  <script>
+  
+  // ******
+
+  var welcome = {
+    type: "html-button-response",
+    stimulus: "<font size=5.5><p><b>¡Bienvenido!</b></p><p>"+
+    "<p>Estamos por comenzar el curso de <b>Análisis de datos</b> con Python en el <b>INTAL</b>.</p><p>Para adaptar el contenido del curso lo mejor posible, realizaremos la siguiente encuesta en la que deberás responder algunas preguntas demográficas, de estadística y de programación. Luego usaremos parte de los mismos como ejemplo en el curso!</p>",
+    trial_duration: 900000,
+    choices: ['Continuar'],
+    };
+  
+  var welcome2 = {
+    type: "html-button-response",
+    stimulus: "<font size=5.5><p>No te preocupes por respuestas incorrectas, <p>dados los distintos backgrounds es posible que encuentres tanto <i>pavadas</i> como preguntas que te resulten difíciles.</p>"+
+"<p>Podés responder desde un celular, pero procurá estar en un espacio tranquilo para hacerlo. Demorará menos de 15 minutos.</p>",
+    choices : ['Continuar'],
+    };
+
+  var demography_choice = {
+      type: 'survey-multi-choice',
+      questions: [
+                {prompt:'Género', options: ["Femenino","Masculino","Otro","No deseo contestar"], horizontal:true, required:true},
+		{prompt:'Nivel Educativo Alcanzado', options: ["Licenciatura de grado","Carrera de especialización","Master","Doctorado","Otro"], horizontal:true, required:true}], 
+      required:true,
+    button_label: 'Continuar',
+  };
+
+  var demography_text = {
+      type: 'survey-text',
+      questions: [
+        {prompt: '¿Cuál es su edad?', placeholder:'', columns: 10, required:true},
+        {prompt: '¿Cuál es su área de especialización?', columns: 20, placeholder:'', required:true},
+      ],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+ var expect = {
+      type: 'survey-text',
+      questions: [
+        {prompt: '¿Qué tipo de problemas esperás poder resolver usando Python?', placeholder:'', columns: 50, rows:10, required:true},
+        {prompt: '¿Algún tema que te gustaría que estuviera contemplado dentro del contenido del curso?', placeholder:'', columns: 50, rows:10, required:true},
+        ],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+  var stats_i = {
+      type: 'survey-text',
+      questions: [
+        {prompt: '¿Cuáles son las medidas de tendencia central? ¿Qué podemos esperar que suceda con cada una si removemos un valor extremo?', placeholder:'', columns: 100, rows:10,  required:true},
+        {prompt: 'Dado una regresión lineal múltiple, asumiendo que los supuestos se cumplen y hay buen ajuste, <p>¿qué podrías decir si el beta (peso, o coeficiente) para una variable es igual a 2?',
+ columns: 100, rows:10, placeholder:'', required:true},
+      ],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+  var stats_ii = {
+      type: 'survey-multi-select',
+      questions: [
+        {prompt: '¿Qué métrica(s) podemos usar en un contexto de clasificación?', options: ["Accuracy","AUC ROC","R2","F1"], horizontal:true, required:true},
+	{prompt: '¿Cuál(es) de estas opciones nos permiten evaluar o corregir multicolinearidad?', options: ['Selección por correlación lineal (Pearson)', 'Regularización Lasso', 'Normalización', 'Transformación logarítmica'], horizontal:true, required:true},
+	],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+
+  var python_i = {
+      type: 'survey-multi-select',
+      questions: [
+        {prompt: 'Para guardar pares de altura y nombre de un grupo de personas, ¿qué estructura de datos usarías?', options: ['entero', 'diccionario', 'lista', 'string'], horizontal:true, required:true},
+	{prompt: '¿Qué devuelve el siguiente código? '+
+`<p><div align="center"><textarea cols="20" rows="5" font="Open Sans">
+for i in range(10):
+    if i % 2 == 0: 
+        print(i//2)
+</textarea></div>
+`,
+ options: ["0,1,2","0,2,4","0,2","None"], horizontal:true, required:true},
+	],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+  var python_ii = {
+      type: 'survey-text',
+      questions: [
+        {prompt: 'Escribí en pseudo-código el código para recorrer una lista de enteros y guardar en una variable el valor máximo de la lista dividido dos', placeholder:'', columns: 50, rows:20, required:true},
+        ],
+      required:true,
+    button_label: 'Continuar',
+  };
+
+ var bye = {
+    type: "html-button-response",
+    stimulus: "<p>Muchas gracias, eso es todo! Nos vemos pronto,<p>Saludos! Matías",
+    trial_duration: 900000,
+    choices: ['Finalizar'],
+    };
+
+  // ******
+
+  jsPsych.data.addProperties({
+	  context: "intal_encuesta"
+	});
+
+  var date = Date().toString();
+  var ec2url = "https://ihum.ai/data-server/postdata"
+	
+  jsPsych.init({
+    timeline: [welcome, welcome2, demography_choice, demography_text, stats_i, stats_ii, python_i, python_ii,bye],
+    on_finish: function() { $.ajax({
+                        type: "POST",
+                        data: {'data' : JSON.stringify(jsPsych.data.get().json())},
+                        url: ec2url,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                        async:false,
+                        }); 
+			window.location = 'https://www.iadb.org/en/intal/home'
+                        },
+              });
+
+
+</script>
+</html>
+
