@@ -4,6 +4,7 @@
   <head>
     <title>INTAL</title>
     <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache" />
     <link rel="icon" type="image/png" href="static/media/misc/favicon.png">
     <link rel="stylesheet" href="static/jspsych/css/jspsych.css"></link>
     <script src="static/jspsych/jspsych.js"></script>
@@ -46,8 +47,8 @@
   var demography_text = {
       type: 'survey-text',
       questions: [
-        {prompt: 'Nombre', placeholder:'', columns: 10, required:true},
-        {prompt: 'Dirección de mail', placeholder:'', columns: 10, required:true},
+        {prompt: 'Nombre', placeholder:'', columns: 20, required:true},
+        {prompt: 'Dirección de mail', placeholder:'', columns: 20, required:true},
         {prompt: 'Edad', placeholder:'', columns: 10, required:true},
         {prompt: 'Área de especialización o formación', columns: 20, placeholder:'', required:true},
       ],
