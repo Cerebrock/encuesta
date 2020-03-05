@@ -156,7 +156,7 @@ jsPsych.plugins['survey-multi-select'] = (function() {
       // adds validation to check if at least one option is selected
       if(trial.required && has_response.includes(false)) {
         var inputboxes = display_element.querySelectorAll("input[type=checkbox]")
-        display_element.querySelector(".fail-message").innerHTML = '<span style="color: red;" class="required">'+trial.required_msg+'</span>';
+        display_element.querySelector(".fail-message").innerHTML = '<span style="color: red;" class="required">Por favor ingrese una respuesta</span>';
       } else {
         // save data
         var trial_data = {
